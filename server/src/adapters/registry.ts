@@ -431,8 +431,9 @@ const piLocalAdapter: ServerAdapterModule = {
   agentConfigurationDoc: piAgentConfigurationDoc,
 };
 
-// hermes-paperclip-adapter v0.2.0 predates the authToken field; cast is
-// intentional until hermes ships a matching AdapterExecutionContext type.
+// hermes-paperclip-adapter@0.3.0 was published against @paperclipai/adapter-utils@2026.325.0,
+// which predates the processGroupId field added to onSpawn.meta in the local workspace. The
+// cast is intentional until adapter-utils is republished and hermes updates its peer dep.
 const executeHermesLocal = hermesExecute as unknown as ServerAdapterModule["execute"];
 
 const hermesLocalAdapter: ServerAdapterModule = {
