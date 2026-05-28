@@ -58,8 +58,11 @@ WORKDIR /app
 COPY --chown=node:node --from=build /app /app
 RUN npm install --global --omit=dev @anthropic-ai/claude-code@latest @openai/codex@latest opencode-ai \
   && apt-get update \
-  && apt-get install -y --no-install-recommends openssh-client jq \
+  && apt-get install -y --no-install-recommends openssh-client jq python3-pip python3-venv \
   && rm -rf /var/lib/apt/lists/* \
+  && python3 -m venv /opt/hermes-venv \
+  && /opt/hermes-venv/bin/pip install --no-cache-dir hermes-agent \
+  && ln -s /opt/hermes-venv/bin/hermes /usr/local/bin/hermes \
   && mkdir -p /paperclip \
   && chown node:node /paperclip
 
